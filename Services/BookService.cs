@@ -21,14 +21,16 @@ public class BookService: IBookService
     
     public void AddBook(AddingBook book)
     {
+        int newId = Books.Count==0 ? 0 : ++Books.Last().Id;
         Books.Add(new Book
         {
-            Id = Books.Count()+1,
+            Id = newId,
             Name = book.Name,
             Author = book.Author,
-            ReleaseDate = book.RealeaseDate,
+            ReleaseDate = book.ReleaseDate,
             Genres = book.Genres,
             Status = book.Status,
+            GivenTo = String.IsNullOrEmpty(book.GivenTo) ? null : book.GivenTo,
             CreatedAt = DateTime.UtcNow
         });
     }
@@ -85,7 +87,7 @@ public class BookService: IBookService
         var book = Books.FirstOrDefault(x => x.Id == id);
         if(book==null)
         {
-            throw new ArgumentException($"Book with id {id} not found");
+            throw new KeyNotFoundException($"Book with id {id} not found");
         }
         return book;
     }
