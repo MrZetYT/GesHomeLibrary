@@ -12,4 +12,5 @@ public class Book
     public IEnumerable<GenresList> Genres { get; set; } = new List<GenresList>();
     public required StatusesList Status { get; set; }
     public string? GivenTo  { get; set; }
+    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }

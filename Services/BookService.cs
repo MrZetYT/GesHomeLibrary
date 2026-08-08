@@ -28,7 +28,8 @@ public class BookService: IBookService
             ReleaseDate = DateTime.Parse(settings[3]),
             GenresCount = genresCount,
             Genres = genresList,
-            Status = _statusParseService.StatusParseByName(settings[6 + genresCount])
+            Status = _statusParseService.StatusParseByName(settings[6 + genresCount]),
+            CreatedAt = DateTime.UtcNow
         });
     }
 
