@@ -17,7 +17,7 @@ public class GenreParseService
             "Romance" => GenresList.Romance,
             "Fantasy" =>GenresList.Fantasy,
             "Detective Story" => GenresList.DetectiveStory,
-            _ => GenresList.Fiction
+            _ => throw new ArgumentException($"Genre {genreName} not found")
         };
     }
 }

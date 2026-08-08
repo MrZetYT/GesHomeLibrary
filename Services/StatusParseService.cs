@@ -12,7 +12,7 @@ public class StatusParseService
             "Read" => StatusesList.Read,
             "Given away" => StatusesList.GivenAway,
             "Being read"=> StatusesList.BeingRead,
-            _ =>StatusesList.InStock
+            _ => throw new ArgumentException($"Status {statusName} not found")
         };
     }
 }

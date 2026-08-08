@@ -1,6 +1,4 @@
-﻿using System.Collections;
-
-namespace GesHomeLibrary.Models;
+﻿namespace GesHomeLibrary.Models;
 
 public class Book
 {
@@ -8,7 +6,6 @@ public class Book
     public required string Name { get; set; }
     public required string Author { get; set; }
     public DateTime  ReleaseDate { get; set; } = DateTime.UtcNow;
-    public int GenresCount { get; set; }
     public IEnumerable<GenresList> Genres { get; set; } = new List<GenresList>();
     public required StatusesList Status { get; set; }
     public string? GivenTo  { get; set; }

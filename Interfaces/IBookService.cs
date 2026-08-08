@@ -1,19 +1,20 @@
 ﻿using GesHomeLibrary.Models;
+using GesHomeLibrary.Models.DTOs;
 
 namespace GesHomeLibrary.Interfaces;
 
 public interface IBookService
 {
-    void AddBook(string book);
-    void DeleteBook(Book book);
+    void AddBook(AddingBook book);
+    void DeleteBook(int bookId);
     IEnumerable<Book> GetBooks();
     Book GetBook(int id);
     void DeleteAllBooks();
-    void UpdateBookName(ref Book book, string name);
-    void UpdateBookAuthor(ref Book book, string author);
-    void UpdateBookGenre(ref Book book , string genre);
-    void UpdateBookDate(ref Book book,  DateTime date);
-    void UpdateBookStatus(ref Book book, string status, string? givenTo);
-    void DeleteGenre(ref Book book, string genre);
-    void DeleteAllGenres(ref Book book);
+    void UpdateBookName(int bookId, string name);
+    void UpdateBookAuthor(int bookId, string author);
+    void UpdateBookGenre(int bookId, string genre);
+    void UpdateBookDate(int bookId,  DateTime date);
+    void UpdateBookStatus(int bookId, string status, string? givenTo);
+    void DeleteGenre(int bookId, string genre);
+    void DeleteAllGenres(int bookId);
 }
