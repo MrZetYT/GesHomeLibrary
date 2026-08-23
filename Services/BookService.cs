@@ -27,7 +27,7 @@ public class BookService: IBookService
             Id = newId,
             Name = book.Name,
             Author = book.Author,
-            ReleaseDate = book.ReleaseDate,
+            ReleaseYear = book.ReleaseYear,
             Genres = book.Genres,
             Status = book.Status,
             GivenTo = String.IsNullOrEmpty(book.GivenTo) ? null : book.GivenTo,
@@ -55,10 +55,10 @@ public class BookService: IBookService
         book.Genres = genres;
     }
 
-    public void UpdateBookDate(int bookId, DateTime date)
+    public void UpdateBookDate(int bookId, int year)
     {
         var book = GetBook(bookId);
-        book.ReleaseDate = date;
+        book.ReleaseYear = year;
     }
 
     public void UpdateBookStatus(int bookId, string status, string? givenTo)

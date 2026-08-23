@@ -3,7 +3,7 @@
 public record AddingBook(
     string Name,
     string Author,
-    DateTime ReleaseDate,
+    int ReleaseYear,
     List<GenresList> Genres,
     StatusesList Status,
     string? GivenTo);
