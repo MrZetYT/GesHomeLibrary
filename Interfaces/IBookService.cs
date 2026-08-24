@@ -6,15 +6,16 @@ namespace GesHomeLibrary.Interfaces;
 public interface IBookService
 {
     void AddBook(AddingBook book);
-    void DeleteBook(int bookId);
     IEnumerable<Book> GetBooks();
     Book GetBook(int id);
-    void DeleteAllBooks();
     void UpdateBookName(int bookId, string name);
     void UpdateBookAuthor(int bookId, string author);
-    void UpdateBookGenre(int bookId, string genre);
+    void UpdateBookGenre(int bookId, GenresList genre);
     void UpdateBookDate(int bookId,  int date);
-    void UpdateBookStatus(int bookId, string status, string? givenTo);
-    void DeleteGenre(int bookId, string genre);
+    void UpdateBookStatus(int bookId, StatusesList status, string? givenTo);
+    void DeleteBook(int bookId);
+    void DeleteAllBooks();
+    void DeleteGenre(int bookId, GenresList genre);
     void DeleteAllGenres(int bookId);
+    void ShowAllBooks(IEnumerable<Book> books);
 }

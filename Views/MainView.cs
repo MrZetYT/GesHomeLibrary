@@ -1,6 +1,4 @@
-﻿using System.Text;
-using GesHomeLibrary.Interfaces;
-using GesHomeLibrary.Models;
+﻿using GesHomeLibrary.Interfaces;
 
 namespace GesHomeLibrary.Views;
 
@@ -23,12 +21,12 @@ public class MainView
         {
             Console.WriteLine("Что бы вы хотели сделать?");
             Console.Write("1. Показать все книги\n" + 
-                              "2. Операции по книге\n" +
-                              "3. Фильтр по книгам\n" +
-                              "4. Сортировка книг\n" +
-                              "5. Статистика по книгам\n" +
-                              "6. Выход\n" +
-                              "Ввод: ");
+                          "2. Операции по книге\n" +
+                          "3. Фильтр по книгам\n" + 
+                          "4. Сортировка книг\n" + 
+                          "5. Статистика по книгам\n" + 
+                          "6. Выход\n" + 
+                          "Ввод: ");
             try
             {
                 choice = int.Parse(Console.ReadLine());
@@ -43,7 +41,7 @@ public class MainView
             {
                 case 1:
                 {
-                    ShowAllBooks(_bookService.GetBooks());
+                    _bookService.ShowAllBooks(_bookService.GetBooks());
                     break;
                 }
                 case 2:
@@ -59,30 +57,5 @@ public class MainView
                 }
             }
         }
-    }
-
-    public static void ShowAllBooks(IEnumerable<Book> books)
-    {
-        foreach (var book in books)
-        {
-            var genresList = book.Genres.ToList();
-
-            var sb = new StringBuilder();
-            foreach (var genre in genresList)
-            {
-                sb.Append(genre.ToString()+" ");
-            }
-            var givenTo = book.Status == StatusesList.GivenAway ? book.GivenTo : "";
-
-            Console.WriteLine(new string('~',50));
-            Console.WriteLine($"ID: {book.Id}\n" +
-                              $"Название: {book.Name}\n" +
-                              $"Автор: {book.Author}\n" +
-                              $"Жанры: {sb}\n" +
-                              $"Дата выхода: {book.ReleaseYear}\n" +
-                              $"Статус: {book.Status.ToString()} {givenTo}\n" +
-                              $"Создана: {book.CreatedAt}");
-        }
-        Console.WriteLine(new string('~',50));
     }
 }

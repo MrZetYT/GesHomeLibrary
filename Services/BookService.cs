@@ -1,4 +1,5 @@
-﻿using GesHomeLibrary.Models;
+﻿using System.Text;
+using GesHomeLibrary.Models;
 using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models.DTOs;
 
@@ -47,11 +48,11 @@ public class BookService: IBookService
         book.Author = author;
     }
 
-    public void UpdateBookGenre(int bookId, string genre)
+    public void UpdateBookGenre(int bookId, GenresList genre)
     {
         var book = GetBook(bookId);
         var genres = book.Genres.ToList();
-        genres.Add(_genreParseService.GenreParseByName(genre));
+        genres.Add(genre);
         book.Genres = genres;
     }
 
@@ -61,11 +62,11 @@ public class BookService: IBookService
         book.ReleaseYear = year;
     }
 
-    public void UpdateBookStatus(int bookId, string status, string? givenTo)
+    public void UpdateBookStatus(int bookId, StatusesList status, string? givenTo)
     {
         var book = GetBook(bookId);
         
-        book.Status = _statusParseService.StatusParseByName(status);
+        book.Status = status;
         if (givenTo != null)
         {
             book.GivenTo = givenTo;
@@ -103,11 +104,11 @@ public class BookService: IBookService
         Books.Clear();
     }
 
-    public void DeleteGenre(int bookId, string genre)
+    public void DeleteGenre(int bookId, GenresList genre)
     {
         var book = GetBook(bookId);
         var genres = book.Genres.ToList();
-        genres.Remove(_genreParseService.GenreParseByName(genre));
+        genres.Remove(genre);
         book.Genres = genres;
     }
 
@@ -115,5 +116,32 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         book.Genres = new List<GenresList>();
+    }
+    
+    public void ShowAllBooks(IEnumerable<Book> books)
+    {
+        foreach (var book in books)
+        {
+            var genresList = book.Genres.ToList();
+
+            var sb = new StringBuilder();
+            foreach (var genre in genresList)
+            {
+                sb.Append(genre.ToString()+", ");
+            }
+
+            sb.Remove(sb.Length - 2, 2);
+            var givenTo = book.Status == StatusesList.GivenAway ? book.GivenTo : "";
+
+            Console.WriteLine(new string('~',50));
+            Console.WriteLine($"ID: {book.Id}\n" +
+                              $"Название: {book.Name}\n" +
+                              $"Автор: {book.Author}\n" +
+                              $"Жанры: {sb}\n" +
+                              $"Дата выхода: {book.ReleaseYear}\n" +
+                              $"Статус: {book.Status.ToString()} {(book.Status==StatusesList.GivenAway ? $"- {givenTo}" : "")}\n" +
+                              $"Создана: {book.CreatedAt}");
+        }
+        Console.WriteLine(new string('~',50));
     }
 }
