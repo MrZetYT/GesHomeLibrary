@@ -22,10 +22,10 @@ public class BookService: IBookService
     
     public void AddBook(AddingBook book)
     {
-        int newId = Books.Count==0 ? 0 : ++Books.Last().Id;
+        int newId = Books.Count==0 ? -1 : Books.Last().Id;
         Books.Add(new Book
         {
-            Id = newId,
+            Id = ++newId,
             Name = book.Name,
             Author = book.Author,
             ReleaseYear = book.ReleaseYear,
