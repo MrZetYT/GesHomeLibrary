@@ -7,14 +7,17 @@ public class MainView
     private readonly IBookService _bookService;
     private readonly BookCRUDView _bookCRUDView;
     private readonly FilterView _filterView;
+    private readonly SortView _sortView;
     
     public MainView(IBookService bookService,
             BookCRUDView bookCRUDView,
-            FilterView filterView)
+            FilterView filterView,
+            SortView sortView)
     {
         _bookService = bookService;
         _bookCRUDView = bookCRUDView;
         _filterView = filterView;
+        _sortView = sortView;
     }
     
     public void StartMainView()
@@ -55,6 +58,11 @@ public class MainView
                 case 3:
                 {
                     _filterView.StartFilteriew();
+                    break;
+                }
+                case 4:
+                {
+                    _sortView.StartSortView();
                     break;
                 }
                 default:

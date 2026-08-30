@@ -17,6 +17,7 @@ services.AddTransient<BookValidator>();
 services.AddTransient<MainView>();
 services.AddTransient<BookCRUDView>();
 services.AddTransient<FilterView>();
+services.AddTransient<SortView>();
 
 var serviceProvider = services.BuildServiceProvider(validateScopes: true);
 
