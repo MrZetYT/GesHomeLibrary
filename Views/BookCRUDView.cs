@@ -5,15 +5,15 @@ using GesHomeLibrary.Services;
 
 namespace GesHomeLibrary.Views;
 
-public class BookCRUDView
+public class BookCrudView
 {
     private readonly IBookService _bookService;
 
-    public BookCRUDView(IBookService bookService)
+    public BookCrudView(IBookService bookService)
     {
         _bookService = bookService;
     }
-    public void StartBookCRUDView()
+    public void StartBookCrudView()
     {
         int choice = 0;
         while (choice != 4)
@@ -141,7 +141,7 @@ public class BookCRUDView
                         case 1: status=StatusesList.InStock; break;
                         case 2: status=StatusesList.Read; break;
                         case 3: status=StatusesList.GivenAway; break;
-                        case 4: status=StatusesList.Read; break;
+                        case 4: status=StatusesList.BeingRead; break;
                     }
 
                     var givenTo = "";
@@ -342,6 +342,13 @@ public class BookCRUDView
                                 {
                                     Console.WriteLine("Неправильный ввод статуса! Попробуйте еще раз...");
                                 }
+                            }
+
+                            if (_bookService.GetBook(bookIdChoice).Status == (StatusesList)newStatus - 1)
+                            {
+                                Console.WriteLine("Невозможно одолжить уже одолженную книгу." +
+                                                  "Ее необходимо вернуть!");
+                                break;
                             }
 
                             string? givenTo = null;

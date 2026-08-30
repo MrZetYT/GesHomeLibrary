@@ -15,9 +15,10 @@ services.AddTransient<GenreParseService>();
 services.AddTransient<BookValidator>();
 
 services.AddTransient<MainView>();
-services.AddTransient<BookCRUDView>();
+services.AddTransient<BookCrudView>();
 services.AddTransient<FilterView>();
 services.AddTransient<SortView>();
+services.AddTransient<StatisticsView>();
 
 var serviceProvider = services.BuildServiceProvider(validateScopes: true);
 

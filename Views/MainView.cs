@@ -5,19 +5,22 @@ namespace GesHomeLibrary.Views;
 public class MainView
 {
     private readonly IBookService _bookService;
-    private readonly BookCRUDView _bookCRUDView;
+    private readonly BookCrudView _bookCrudView;
     private readonly FilterView _filterView;
     private readonly SortView _sortView;
+    private readonly StatisticsView _statisticsView;
     
     public MainView(IBookService bookService,
-            BookCRUDView bookCRUDView,
+            BookCrudView bookCrudView,
             FilterView filterView,
-            SortView sortView)
+            SortView sortView,
+            StatisticsView statisticsView)
     {
         _bookService = bookService;
-        _bookCRUDView = bookCRUDView;
+        _bookCrudView = bookCrudView;
         _filterView = filterView;
         _sortView = sortView;
+        _statisticsView = statisticsView;
     }
     
     public void StartMainView()
@@ -52,7 +55,7 @@ public class MainView
                 }
                 case 2:
                 {
-                    _bookCRUDView.StartBookCRUDView();
+                    _bookCrudView.StartBookCrudView();
                     break;
                 }
                 case 3:
@@ -63,6 +66,16 @@ public class MainView
                 case 4:
                 {
                     _sortView.StartSortView();
+                    break;
+                }
+                case 5:
+                {
+                    _statisticsView.ShowStatistics(_bookService.GetBooks());
+                    break;
+                }
+                case 6:
+                {
+                    Console.WriteLine("Всего хорошего!!!");
                     break;
                 }
                 default:
