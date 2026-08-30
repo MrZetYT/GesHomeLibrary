@@ -6,12 +6,15 @@ public class MainView
 {
     private readonly IBookService _bookService;
     private readonly BookCRUDView _bookCRUDView;
+    private readonly FilterView _filterView;
     
     public MainView(IBookService bookService,
-            BookCRUDView bookCRUDView)
+            BookCRUDView bookCRUDView,
+            FilterView filterView)
     {
         _bookService = bookService;
         _bookCRUDView = bookCRUDView;
+        _filterView = filterView;
     }
     
     public void StartMainView()
@@ -47,6 +50,11 @@ public class MainView
                 case 2:
                 {
                     _bookCRUDView.StartBookCRUDView();
+                    break;
+                }
+                case 3:
+                {
+                    _filterView.StartFilteriew();
                     break;
                 }
                 default:

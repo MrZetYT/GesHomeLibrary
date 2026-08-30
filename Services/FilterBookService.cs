@@ -16,9 +16,9 @@ public class FilterBookService: IFilterBookService
         _statusParseService = statusParseService;
     }
     
-    public IEnumerable<Book> FilterBooksByGenre(IEnumerable<Book> books, string genre)
+    public IEnumerable<Book> FilterBooksByGenre(IEnumerable<Book> books, GenresList genre)
     {
-        return books.Where(x => x.Genres.Contains(_genreParseService.GenreParseByName(genre))).ToList();
+        return books.Where(x => x.Genres.Contains(genre)).ToList();
     }
 
     public IEnumerable<Book> FilterBooksByAuthor(IEnumerable<Book> books, string author)
@@ -26,8 +26,8 @@ public class FilterBookService: IFilterBookService
         return books.Where(x=> x.Author.Contains(author)).ToList();
     }
 
-    public IEnumerable<Book> FilterBooksByStatus(IEnumerable<Book> books, string status)
+    public IEnumerable<Book> FilterBooksByStatus(IEnumerable<Book> books, StatusesList status)
     {
-        return books.Where(x=> x.Status.Equals(_statusParseService.StatusParseByName(status))).ToList();
+        return books.Where(x=> x.Status.Equals(status)).ToList();
     }
 }

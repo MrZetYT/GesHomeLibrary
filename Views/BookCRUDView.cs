@@ -8,12 +8,10 @@ namespace GesHomeLibrary.Views;
 public class BookCRUDView
 {
     private readonly IBookService _bookService;
-    private readonly BookValidator _bookValidator;
 
-    public BookCRUDView(IBookService bookService, BookValidator bookValidator)
+    public BookCRUDView(IBookService bookService)
     {
         _bookService = bookService;
-        _bookValidator = bookValidator;
     }
     public void StartBookCRUDView()
     {
@@ -432,6 +430,11 @@ public class BookCRUDView
                                 Console.WriteLine("Удаление произошло успешно!");
                             }
 
+                            break;
+                        }
+                        case 3:
+                        {
+                            Console.WriteLine("Отмена удаления!");
                             break;
                         }
                     }
