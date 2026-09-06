@@ -1,4 +1,5 @@
-﻿using GesHomeLibrary.Interfaces;
+﻿using GesHomeLibrary.Exceptions;
+using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models;
 using GesHomeLibrary.Models.DTOs;
 using GesHomeLibrary.Services;
@@ -178,7 +179,7 @@ public class BookCrudView : BaseView
                                     {
                                         _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice - 1]);
                                     }
-                                    catch (InvalidOperationException ex)
+                                    catch (PossibleEmptyCollection ex)
                                     {
                                         Console.WriteLine($"Произошла ошибка. {ex.Message}");
                                         Console.WriteLine("Книга должна иметь хотя бы один жанр. Запускаю добавление жанра...");

@@ -11,17 +11,20 @@ public class BookService: IBookService
     public void AddBook(AddingBook book)
     {
         int newId = Books.Count==0 ? -1 : Books.Last().Id;
-        Books.Add(new Book
+        var newBook = new Book
         {
             Id = ++newId,
             Name = book.Name,
             Author = book.Author,
             ReleaseYear = book.ReleaseYear,
-            Genres = book.Genres,
             Status = book.Status,
             GivenTo = String.IsNullOrEmpty(book.GivenTo) ? null : book.GivenTo,
             CreatedAt = DateTime.UtcNow
-        });
+        };
+        foreach (var genre in book.Genres)
+        {
+            newBook.AddGenre(genre);
+        }
     }
 
     public void UpdateBookName(int bookId, string  name)
@@ -39,10 +42,7 @@ public class BookService: IBookService
     public void UpdateBookGenre(int bookId, GenresList genre)
     {
         var book = GetBook(bookId);
-        var genres = book.Genres;
-        if (genres.Contains(genre)) throw new InvalidOperationException("That genre is already exist");
-        genres.Add(genre);
-        book.Genres = genres;
+        book.AddGenre(genre);
     }
 
     public void UpdateBookDate(int bookId, int year)
@@ -97,34 +97,26 @@ public class BookService: IBookService
     {
         Books.Clear();
     }
-
-    public void DeleteGenre(int bookId, GenresList genre)
-    {
-        var book = GetBook(bookId);
-        var genres = book.Genres;
-        if (genres.Count==1)
-        {
-            throw new InvalidOperationException("Nothing in genres after deleting");
-        }
-        genres.Remove(genre);
-    }
     
-    public void DeleteGenre(int bookId, GenresList genre, GenresList newGenre)
+    public void DeleteGenre(int bookId, GenresList genre, GenresList? newGenre = null)
     {
         var book = GetBook(bookId);
-        var genres = book.Genres;
-        genres.Remove(genre);
-        book.Genres = genres;
-        if (!genres.Any())
+        book.RemoveGenre(genre);
+        if (newGenre != null)
         {
-            UpdateBookGenre(bookId, newGenre);
+            book.AddGenre(newGenre.Value);
         }
     }
 
     public void DeleteAllGenres(int bookId, GenresList newGenre)
     {
         var book = GetBook(bookId);
-        book.Genres = new List<GenresList>();
-        UpdateBookGenre(bookId, newGenre);
+        
+        foreach (var genre in book.Genres)
+        {
+            book.RemoveGenre(genre);
+        }
+        
+        book.AddGenre(newGenre);
     }
 }

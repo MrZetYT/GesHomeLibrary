@@ -15,7 +15,6 @@ public interface IBookService
     void UpdateBookStatus(int bookId, StatusesList status, string? givenTo);
     void DeleteBook(int bookId);
     void DeleteAllBooks();
-    void DeleteGenre(int bookId, GenresList genre);
-    public void DeleteGenre(int bookId, GenresList genre, GenresList newGenre);
+    void DeleteGenre(int bookId, GenresList genre, GenresList? newGenre=null);
     void DeleteAllGenres(int bookId, GenresList newGenre);
 }
