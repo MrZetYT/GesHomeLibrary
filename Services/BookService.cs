@@ -102,9 +102,9 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         var genres = book.Genres;
-        if (!genres.Any())
+        if (genres.Count==1)
         {
-            throw new InvalidOperationException("Nothing in genres");
+            throw new InvalidOperationException("Nothing in genres after deleting");
         }
         genres.Remove(genre);
     }

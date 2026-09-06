@@ -174,16 +174,16 @@ public class BookCrudView : BaseView
                                         break;
                                     }
 
-                                    if (genresCount == 1)
-                                    {
-                                        Console.WriteLine("Книга должна иметь хотя бы один жанр. Запускаю добавление жанра...");
-                                        _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice-1], GetNewBookGenre());
-                                        break;
-                                    }
-
                                     try
                                     {
                                         _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice - 1]);
+                                    }
+                                    catch (InvalidOperationException ex)
+                                    {
+                                        Console.WriteLine($"Произошла ошибка. {ex.Message}");
+                                        Console.WriteLine("Книга должна иметь хотя бы один жанр. Запускаю добавление жанра...");
+                                        _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice-1], GetNewBookGenre());
+                                        break;
                                     }
                                     catch (Exception ex)
                                     {
