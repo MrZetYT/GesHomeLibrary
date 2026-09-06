@@ -195,7 +195,16 @@ public class BookCrudView : BaseView
                                 case 2:
                                 {
                                     var newBookGenre = GetNewBookGenre();
-                                    _bookService.UpdateBookGenre(bookIdChoice, newBookGenre);
+                                    try
+                                    {
+                                        _bookService.UpdateBookGenre(bookIdChoice, newBookGenre);
+                                    }
+                                    catch(Exception ex)
+                                    {
+                                        Console.WriteLine($"Что-то пошло не так. Обновление не выполнено\n" +
+                                                          $"{ex.Message}");
+                                        break;
+                                    }
                                     break;
                                 }
                             }

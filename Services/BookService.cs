@@ -1,5 +1,4 @@
-﻿using System.Text;
-using GesHomeLibrary.Models;
+﻿using GesHomeLibrary.Models;
 using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models.DTOs;
 
@@ -7,17 +6,6 @@ namespace GesHomeLibrary.Services;
 
 public class BookService: IBookService
 {
-    private readonly GenreParseService _genreParseService;
-    private readonly StatusParseService _statusParseService;
-
-    public BookService(
-        GenreParseService genreParseService,
-        StatusParseService statusParseService)
-    {
-        _genreParseService = genreParseService;
-        _statusParseService = statusParseService;
-    }
-
     public List<Book> Books { get; set; } = new();
     
     public void AddBook(AddingBook book)
@@ -52,7 +40,7 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         var genres = book.Genres;
-        if (genres.Contains(genre)) return;
+        if (genres.Contains(genre)) throw new InvalidOperationException("That genre is already exist");
         genres.Add(genre);
         book.Genres = genres;
     }
@@ -69,7 +57,7 @@ public class BookService: IBookService
         
         if (book.Status == status && status == StatusesList.GivenAway)
         {
-            throw new ArgumentException("Impossible to borrow a borrowed book");
+            throw new InvalidOperationException("Impossible to borrow a borrowed book");
         }
         
         book.Status = status;
@@ -114,12 +102,11 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         var genres = book.Genres;
-        genres.Remove(genre);
-        book.Genres = genres;
         if (!genres.Any())
         {
-            throw new Exception("Nothing in genres");
+            throw new InvalidOperationException("Nothing in genres");
         }
+        genres.Remove(genre);
     }
     
     public void DeleteGenre(int bookId, GenresList genre, GenresList newGenre)

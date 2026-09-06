@@ -10,8 +10,6 @@ services.AddSingleton<IFilterBookService, FilterBookService>();
 services.AddSingleton<ISortBookService, SortBookService>();
 services.AddSingleton<IStatisticsService, StatisticsService>();
 
-services.AddTransient<StatusParseService>();
-services.AddTransient<GenreParseService>();
 services.AddTransient<BookValidator>();
 services.AddTransient<UserInputValidator>();
 
