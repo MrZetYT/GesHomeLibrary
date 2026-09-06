@@ -11,7 +11,7 @@ public class StatisticsView
     {
         _statisticsService = statisticsService;
     }
-    public void ShowStatistics(List<Book> books)
+    public void ShowStatistics(IEnumerable<Book> books)
     {
         Console.WriteLine("Статистика Вашей библиотеки:");
         Console.WriteLine(new string('~',50));

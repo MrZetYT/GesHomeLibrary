@@ -9,12 +9,15 @@ public class BookCrudView : BaseView
 {
     private readonly IBookService _bookService;
     private readonly UserInputValidator  _userInputValidator;
+    private readonly BookValidator _bookValidator;
 
     public BookCrudView(IBookService bookService,
-        UserInputValidator userInputValidator)
+        UserInputValidator userInputValidator,
+        BookValidator bookValidator)
     {
         _bookService = bookService;
         _userInputValidator = userInputValidator;
+        _bookValidator = bookValidator;
     }
     public void StartBookCrudView()
     {
@@ -88,16 +91,22 @@ public class BookCrudView : BaseView
 
                 case 2:
                 {
-                    if (!_bookService.GetBooks().Any())
+                    var books = _bookService.GetBooks().ToList();
+                    if (!books.Any())
                     {
                         Console.WriteLine("Книги еще не добавлены! Отказано в доступе!");
                         break;
                     }
                     Console.WriteLine("Список существующих книг:");
-                    ShowAllBooks(_bookService.GetBooks());
+                    ShowAllBooks(books);
                     
                     Console.WriteLine("Введите ID книги для изменения");
-                    int bookIdChoice = _userInputValidator.NumberInput(0,_bookService.GetBooks().Last().Id);
+                    int bookIdChoice = _userInputValidator.NumberInput(0,books.Last().Id);
+                    if (!_bookValidator.IsBookExist(bookIdChoice, books))
+                    {
+                        Console.WriteLine($"Книги с ID {bookIdChoice} не существует!");
+                        break;
+                    }
 
                     Console.WriteLine("Доступные изменения: \n" +
                                       "1. Название\n" +
@@ -161,12 +170,25 @@ public class BookCrudView : BaseView
                                     if (genreToDeleteChoice == genresCount + 1)
                                     {
                                         Console.WriteLine("Книга должна иметь хотя бы один жанр. Запускаю добавление жанра...");
-                                        var newBookGenre = GetNewBookGenre();
-                                        _bookService.DeleteAllGenres(bookIdChoice, newBookGenre);
+                                        _bookService.DeleteAllGenres(bookIdChoice, GetNewBookGenre());
                                         break;
                                     }
-                                    
-                                    _bookService.DeleteGenre(bookIdChoice,genres[genreToDeleteChoice-1]);
+
+                                    if (genresCount == 1)
+                                    {
+                                        Console.WriteLine("Книга должна иметь хотя бы один жанр. Запускаю добавление жанра...");
+                                        _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice-1], GetNewBookGenre());
+                                        break;
+                                    }
+
+                                    try
+                                    {
+                                        _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice - 1]);
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.WriteLine($"Что-то пошло не так. Удаление не выполнено. {ex.Message}");
+                                    }
                                     
                                     break;
                                 }
@@ -209,8 +231,16 @@ public class BookCrudView : BaseView
                                 Console.WriteLine("Введите того, кому вы отдаете книгу");
                                 givenTo = _userInputValidator.StringInput();
                             }
-                            
-                            _bookService.UpdateBookStatus(bookIdChoice, (StatusesList)newStatus-1, givenTo);
+
+                            try
+                            {
+                                _bookService.UpdateBookStatus(bookIdChoice, (StatusesList)newStatus - 1, givenTo);
+                            }
+                            catch(Exception ex)
+                            {
+                                Console.WriteLine($"Обновление не удалось... {ex.Message}");
+                                break;
+                            }
                             
                             Console.WriteLine("Обновлено успешно!");
 
@@ -223,7 +253,8 @@ public class BookCrudView : BaseView
 
                 case 3:
                 {
-                    if (!_bookService.GetBooks().Any())
+                    var books = _bookService.GetBooks().ToList();
+                    if (!books.Any())
                     {
                         Console.WriteLine("Книги еще не добавлены! Отказано в доступе!");
                         break;
@@ -240,10 +271,15 @@ public class BookCrudView : BaseView
                         case 1:
                         {
                             Console.WriteLine("Список существующих книг:");
-                            ShowAllBooks(_bookService.GetBooks());
+                            ShowAllBooks(books);
                             
                             Console.WriteLine("Введите ID книги для удаления");
-                            int bookIdChoice = _userInputValidator.NumberInput(0, _bookService.GetBooks().Last().Id);
+                            int bookIdChoice = _userInputValidator.NumberInput(0, books.Last().Id);
+                            if (!_bookValidator.IsBookExist(bookIdChoice, books))
+                            {
+                                Console.WriteLine($"Книги с ID {bookIdChoice} не существует!");
+                                break;
+                            }
                             
                             _bookService.DeleteBook(bookIdChoice);
 

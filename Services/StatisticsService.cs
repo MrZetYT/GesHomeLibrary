@@ -25,7 +25,7 @@ public class StatisticsService: IStatisticsService
         var result = new Dictionary<string, int>();
         foreach (var book in books)
         {
-            var genres = book.Genres.ToList();
+            var genres = book.Genres;
             foreach (var genre in genres)
             {
                 if (result.ContainsKey(genre.ToString()))

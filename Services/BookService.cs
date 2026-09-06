@@ -51,7 +51,8 @@ public class BookService: IBookService
     public void UpdateBookGenre(int bookId, GenresList genre)
     {
         var book = GetBook(bookId);
-        var genres = book.Genres.ToList();
+        var genres = book.Genres;
+        if (genres.Contains(genre)) return;
         genres.Add(genre);
         book.Genres = genres;
     }
@@ -68,9 +69,7 @@ public class BookService: IBookService
         
         if (book.Status == status && status == StatusesList.GivenAway)
         {
-            Console.WriteLine("Невозможно одолжить уже одолженную книгу." +
-                              "Ее необходимо вернуть!");
-            return;
+            throw new ArgumentException("Impossible to borrow a borrowed book");
         }
         
         book.Status = status;
@@ -114,9 +113,25 @@ public class BookService: IBookService
     public void DeleteGenre(int bookId, GenresList genre)
     {
         var book = GetBook(bookId);
-        var genres = book.Genres.ToList();
+        var genres = book.Genres;
         genres.Remove(genre);
         book.Genres = genres;
+        if (!genres.Any())
+        {
+            throw new Exception("Nothing in genres");
+        }
+    }
+    
+    public void DeleteGenre(int bookId, GenresList genre, GenresList newGenre)
+    {
+        var book = GetBook(bookId);
+        var genres = book.Genres;
+        genres.Remove(genre);
+        book.Genres = genres;
+        if (!genres.Any())
+        {
+            UpdateBookGenre(bookId, newGenre);
+        }
     }
 
     public void DeleteAllGenres(int bookId, GenresList newGenre)

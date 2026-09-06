@@ -31,32 +31,24 @@ public class SortView : BaseView
                           "4. Выход");
 
             choice = _userInputValidator.NumberInput(1, 4);
-            
-            IEnumerable<Book> sortedBooks;
 
             switch (choice)
             {
                 case 1:
                 {
-                    sortedBooks = _sortBookService.SortBooksByReleaseDate(_bookService.GetBooks());
-                    
-                    ShowAllBooks(sortedBooks);
+                    ShowAllBooks(_sortBookService.SortBooksByReleaseDate(_bookService.GetBooks()));
 
                     break;
                 }
                 case 2:
                 {
-                    sortedBooks = _sortBookService.SortBooksByName(_bookService.GetBooks());
-                    
-                    ShowAllBooks(sortedBooks);
+                    ShowAllBooks(_sortBookService.SortBooksByName(_bookService.GetBooks()));
 
                     break;
                 }
                 case 3:
                 {
-                    sortedBooks = _sortBookService.SortBooksByAuthor(_bookService.GetBooks());
-                    
-                    ShowAllBooks(sortedBooks);
+                    ShowAllBooks(_sortBookService.SortBooksByAuthor(_bookService.GetBooks()));
 
                     break;
                 }

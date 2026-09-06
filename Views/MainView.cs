@@ -66,7 +66,7 @@ public class MainView : BaseView
                 }
                 case 5:
                 {
-                    _statisticsView.ShowStatistics(_bookService.GetBooks().ToList());
+                    _statisticsView.ShowStatistics(_bookService.GetBooks());
                     break;
                 }
                 case 6:

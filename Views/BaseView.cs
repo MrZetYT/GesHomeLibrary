@@ -9,7 +9,7 @@ public class BaseView
     {
         foreach (var book in books)
         {
-            var genresList = book.Genres.ToList();
+            var genresList = book.Genres;
 
             var sb = new StringBuilder();
             foreach (var genre in genresList)

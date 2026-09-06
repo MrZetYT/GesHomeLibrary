@@ -1,11 +1,15 @@
-﻿namespace GesHomeLibrary.Services;
+﻿using GesHomeLibrary.Models;
+
+namespace GesHomeLibrary.Services;
 
 public class BookValidator
 {
-    public bool ValidateGenresCount(int genresCount)
+    public bool IsBookExist(int bookId, IEnumerable<Book> books)
     {
-        if(genresCount <= 0 || genresCount > 3)
+        if (books.FirstOrDefault(x => x.Id == bookId) == null)
+        {
             return false;
+        }
         return true;
     }
 }
