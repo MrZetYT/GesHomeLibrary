@@ -16,6 +16,5 @@ public interface IBookService
     void DeleteBook(int bookId);
     void DeleteAllBooks();
     void DeleteGenre(int bookId, GenresList genre);
-    void DeleteAllGenres(int bookId);
-    void ShowAllBooks(IEnumerable<Book> books);
+    void DeleteAllGenres(int bookId, GenresList newGenre);
 }

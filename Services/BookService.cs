@@ -66,6 +66,13 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         
+        if (book.Status == status && status == StatusesList.GivenAway)
+        {
+            Console.WriteLine("Невозможно одолжить уже одолженную книгу." +
+                              "Ее необходимо вернуть!");
+            return;
+        }
+        
         book.Status = status;
         if (givenTo != null)
         {
@@ -112,36 +119,10 @@ public class BookService: IBookService
         book.Genres = genres;
     }
 
-    public void DeleteAllGenres(int bookId)
+    public void DeleteAllGenres(int bookId, GenresList newGenre)
     {
         var book = GetBook(bookId);
         book.Genres = new List<GenresList>();
-    }
-    
-    public void ShowAllBooks(IEnumerable<Book> books)
-    {
-        foreach (var book in books)
-        {
-            var genresList = book.Genres.ToList();
-
-            var sb = new StringBuilder();
-            foreach (var genre in genresList)
-            {
-                sb.Append(genre.ToString()+", ");
-            }
-
-            sb.Remove(sb.Length - 2, 2);
-            var givenTo = book.Status == StatusesList.GivenAway ? book.GivenTo : "";
-
-            Console.WriteLine(new string('~',50));
-            Console.WriteLine($"ID: {book.Id}\n" +
-                              $"Название: {book.Name}\n" +
-                              $"Автор: {book.Author}\n" +
-                              $"Жанры: {sb}\n" +
-                              $"Дата выхода: {book.ReleaseYear}\n" +
-                              $"Статус: {book.Status.ToString()} {(book.Status==StatusesList.GivenAway ? $"- {givenTo}" : "")}\n" +
-                              $"Создана: {book.CreatedAt}");
-        }
-        Console.WriteLine(new string('~',50));
+        UpdateBookGenre(bookId, newGenre);
     }
 }

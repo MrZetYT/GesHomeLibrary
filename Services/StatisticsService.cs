@@ -7,12 +7,12 @@ public class StatisticsService: IStatisticsService
 {
     public int CountBooks(IEnumerable<Book> books)
     {
-        return books.Distinct().Count();
+        return books.Count();
     }
 
     public int CountReadedBooks(IEnumerable<Book> books)
     {
-        return books.Count(x => x.Status == StatusesList.BeingRead);
+        return books.Count(x => x.Status == StatusesList.Read);
     }
 
     public int CountGivenAwayBooks(IEnumerable<Book> books)

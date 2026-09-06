@@ -1,18 +1,22 @@
 ﻿using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models;
+using GesHomeLibrary.Services;
 
 namespace GesHomeLibrary.Views;
 
-public class SortView
+public class SortView : BaseView
 {
     private readonly ISortBookService _sortBookService;
     private readonly IBookService _bookService;
+    private readonly UserInputValidator _userInputValidator;
 
     public SortView(ISortBookService sortBookService,
-        IBookService bookService)
+        IBookService bookService,
+        UserInputValidator userInputValidator)
     {
         _sortBookService = sortBookService;
         _bookService = bookService;
+        _userInputValidator = userInputValidator;
     }
 
     public void StartSortView()
@@ -20,24 +24,15 @@ public class SortView
         int choice = 0;
         while (choice != 4)
         {
-            Console.Write("Доступный выбор сортировки:\n" +
+            Console.WriteLine("Доступный выбор сортировки:\n" +
                           "1. Год выхода\n" +
                           "2. Имя\n" +
                           "3. Автор\n" +
-                          "4. Выход\n" +
-                          "Ввод: ");
-            try
-            {
-                choice = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                Console.WriteLine("Неправильный ввод! Попробуйте еще раз!");
-                Console.ReadKey();
-                continue;
-            }
+                          "4. Выход");
+
+            choice = _userInputValidator.NumberInput(1, 4);
             
-            IEnumerable<Book> sortedBooks = null;
+            IEnumerable<Book> sortedBooks;
 
             switch (choice)
             {
@@ -45,7 +40,7 @@ public class SortView
                 {
                     sortedBooks = _sortBookService.SortBooksByReleaseDate(_bookService.GetBooks());
                     
-                    _bookService.ShowAllBooks(sortedBooks);
+                    ShowAllBooks(sortedBooks);
 
                     break;
                 }
@@ -53,7 +48,7 @@ public class SortView
                 {
                     sortedBooks = _sortBookService.SortBooksByName(_bookService.GetBooks());
                     
-                    _bookService.ShowAllBooks(sortedBooks);
+                    ShowAllBooks(sortedBooks);
 
                     break;
                 }
@@ -61,7 +56,7 @@ public class SortView
                 {
                     sortedBooks = _sortBookService.SortBooksByAuthor(_bookService.GetBooks());
                     
-                    _bookService.ShowAllBooks(sortedBooks);
+                    ShowAllBooks(sortedBooks);
 
                     break;
                 }

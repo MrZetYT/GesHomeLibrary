@@ -7,7 +7,7 @@ public class SortBookService: ISortBookService
 {
     public IEnumerable<Book> SortBooksByReleaseDate(IEnumerable<Book> books)
     {
-        return books.OrderBy(b => b.ReleaseYear);
+        return books.OrderByDescending(b => b.ReleaseYear);
     }
 
     public IEnumerable<Book> SortBooksByName(IEnumerable<Book> books)

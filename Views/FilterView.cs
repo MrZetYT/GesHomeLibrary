@@ -1,41 +1,36 @@
 ﻿using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models;
+using GesHomeLibrary.Services;
 
 namespace GesHomeLibrary.Views;
 
-public class FilterView
+public class FilterView : BaseView
 {
     private readonly IFilterBookService _filterBookService;
     private readonly IBookService _bookService;
+    private readonly UserInputValidator _userInputValidator;
 
     public FilterView(IFilterBookService filterBookService,
-        IBookService bookService)
+        IBookService bookService,
+        UserInputValidator userInputValidator)
     {
         _filterBookService = filterBookService;
         _bookService = bookService;
+        _userInputValidator = userInputValidator;
     }
 
-    public void StartFilteriew()
+    public void StartFilterView()
     {
         int choice = 0;
         while (choice != 4)
         {
-            Console.Write("Доступный выбор фильтров:\n" +
+            Console.WriteLine("Доступный выбор фильтров:\n" +
                           "1. Жанр\n" +
                           "2. Автор\n" +
                           "3. Статус\n" +
-                          "4. Выход\n" +
-                          "Ввод: ");
-            try
-            {
-                choice = int.Parse(Console.ReadLine());
-            }
-            catch
-            {
-                Console.WriteLine("Неправильный ввод! Попробуйте еще раз!");
-                Console.ReadKey();
-                continue;
-            }
+                          "4. Выход");
+
+            choice = _userInputValidator.NumberInput(1, 4);
 
             switch (choice)
             {
@@ -51,58 +46,40 @@ public class FilterView
                                       "7. Philosophy\n" +
                                       "8. Programming\n" +
                                       "9. Fiction");
-                    int genre = 0;
-                    while (genre <= 0 || genre > 9)
-                    {
-                            
-                        Console.Write("Введите номер жанра: ");
-                        try
-                        {
-                            genre = int.Parse(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Неправильный ввод жанра! Попробуйте еще раз...");
-                        }
-                    }
+                    
+                    Console.WriteLine("Введите номер жанра");
+                    int genre = _userInputValidator.NumberInput(1,9);
 
-                    var filteredBooks = _filterBookService.FilterBooksByGenre(_bookService.GetBooks(), (GenresList)genre-1);
+                    var filteredBooks = _filterBookService
+                        .FilterBooksByGenre(_bookService.GetBooks(), (GenresList)genre-1)
+                        .ToList();
 
-                    if (filteredBooks.Count() == 0)
+                    if (!filteredBooks.Any())
                     {
                         Console.WriteLine("Ничего не найдено по данному фильтру!");
                         break;
                     }
                     
-                    _bookService.ShowAllBooks(filteredBooks);
+                    ShowAllBooks(filteredBooks);
                     
                     break;
                 }
                 case 2:
                 {
-                    string author = "";
-                    while (String.IsNullOrWhiteSpace(author))
-                    {
-                        Console.Write("Введите автора: ");
-                        try
-                        {
-                            author = Console.ReadLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Неправильный ввод автора! Попробуйте еще раз...");
-                        }
-                    }
+                    Console.Write("Введите автора: ");
+                    string author = _userInputValidator.StringInput();
 
-                    var filteredBooks = _filterBookService.FilterBooksByAuthor(_bookService.GetBooks(), author);
+                    var filteredBooks = _filterBookService
+                        .FilterBooksByAuthor(_bookService.GetBooks(), author)
+                        .ToList();
 
-                    if (filteredBooks.Count() == 0)
+                    if (!filteredBooks.Any())
                     {
                         Console.WriteLine("Ничего не найдено по данному фильтру!");
                         break;
                     }
                     
-                    _bookService.ShowAllBooks(filteredBooks);
+                    ShowAllBooks(filteredBooks);
                     
                     break;
                 }
@@ -114,29 +91,19 @@ public class FilterView
                                       "3. Given Away\n" +
                                       "4. Being Read");
                     
-                    int status = 0;
-                    while (status <= 0 || status > 4)
-                    {
-                        Console.Write("Ввод: ");
-                        try
-                        {
-                            status = int.Parse(Console.ReadLine());
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Неправильный ввод статуса! Попробуйте еще раз...");
-                        }
-                    }
+                    int status = _userInputValidator.NumberInput(1,4);
 
-                    var filteredBooks = _filterBookService.FilterBooksByStatus(_bookService.GetBooks(), (StatusesList)status-1);
+                    var filteredBooks = _filterBookService
+                        .FilterBooksByStatus(_bookService.GetBooks(), (StatusesList)status-1)
+                        .ToList();
 
-                    if (filteredBooks.Count() == 0)
+                    if (!filteredBooks.Any())
                     {
                         Console.WriteLine("Ничего не найдено по данному фильтру!");
                         break;
                     }
                     
-                    _bookService.ShowAllBooks(filteredBooks);
+                    ShowAllBooks(filteredBooks);
                     
                     break;
                 }
