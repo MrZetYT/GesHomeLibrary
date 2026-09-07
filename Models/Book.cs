@@ -18,7 +18,7 @@ public class Book
     
     public void AddGenre(GenresList genre)
     {
-        if (_genres.Contains(genre)) throw new InvalidOperationException("That genre is already exist");
+        if (_genres.Contains(genre)) throw new DuplicateCollectionVariable("That genre is already exist");
         _genres.Add(genre);
     }
 
@@ -29,5 +29,15 @@ public class Book
             throw new PossibleEmptyCollection("Nothing in genres after deleting");
         }
         _genres.Remove(genre);
+    }
+
+    public void SwapGenres(GenresList oldGenre, GenresList newGenre)
+    {
+        if (_genres.Contains(oldGenre) && _genres.Count==1)
+        {
+            _genres.Remove(oldGenre);
+            _genres.Add(newGenre);
+        }
+        else throw new InvalidOperationException("Cannot swap genres");
     }
 }

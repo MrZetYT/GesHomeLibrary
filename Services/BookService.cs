@@ -1,4 +1,5 @@
-﻿using GesHomeLibrary.Models;
+﻿using GesHomeLibrary.Exceptions;
+using GesHomeLibrary.Models;
 using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models.DTOs;
 
@@ -105,6 +106,11 @@ public class BookService: IBookService
         var book = GetBook(bookId);
         if (newGenre != null)
         {
+            if (genre == newGenre.Value)
+            {
+                book.SwapGenres(genre, newGenre.Value);
+                return;
+            }
             book.AddGenre(newGenre.Value);
         }
         book.RemoveGenre(genre);
@@ -114,12 +120,22 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         var genres = book.Genres;
-        
-        book.AddGenre(newGenre);
+
+        if (!genres.Contains(newGenre))
+        {
+            book.AddGenre(newGenre);
+        }
         
         foreach (var genre in genres)
         {
-            book.RemoveGenre(genre);
+            try
+            {
+                book.RemoveGenre(genre);
+            }
+            catch (DuplicateCollectionVariable)
+            {
+                book.SwapGenres(genre, newGenre);
+            }
         }
     }
 }
