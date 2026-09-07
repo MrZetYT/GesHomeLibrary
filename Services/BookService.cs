@@ -25,6 +25,8 @@ public class BookService: IBookService
         {
             newBook.AddGenre(genre);
         }
+        
+        Books.Add(newBook);
     }
 
     public void UpdateBookName(int bookId, string  name)
@@ -101,22 +103,23 @@ public class BookService: IBookService
     public void DeleteGenre(int bookId, GenresList genre, GenresList? newGenre = null)
     {
         var book = GetBook(bookId);
-        book.RemoveGenre(genre);
         if (newGenre != null)
         {
             book.AddGenre(newGenre.Value);
         }
+        book.RemoveGenre(genre);
     }
 
     public void DeleteAllGenres(int bookId, GenresList newGenre)
     {
         var book = GetBook(bookId);
+        var genres = book.Genres;
         
-        foreach (var genre in book.Genres)
+        book.AddGenre(newGenre);
+        
+        foreach (var genre in genres)
         {
             book.RemoveGenre(genre);
         }
-        
-        book.AddGenre(newGenre);
     }
 }
