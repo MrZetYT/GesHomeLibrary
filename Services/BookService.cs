@@ -104,14 +104,19 @@ public class BookService: IBookService
     public void DeleteGenre(int bookId, GenresList genre, GenresList? newGenre = null)
     {
         var book = GetBook(bookId);
+        if (!book.Genres.Contains(genre))
+        {
+            throw new KeyNotFoundException($"Genre {genre.ToString()} not found");
+        }
+        
         if (newGenre != null)
         {
             if (genre == newGenre.Value)
             {
-                book.SwapGenres(genre, newGenre.Value);
                 return;
             }
-            book.AddGenre(newGenre.Value);
+            if(!book.Genres.Contains(newGenre.Value))
+                book.AddGenre(newGenre.Value);
         }
         book.RemoveGenre(genre);
     }
@@ -120,22 +125,17 @@ public class BookService: IBookService
     {
         var book = GetBook(bookId);
         var genres = book.Genres;
-
-        if (!genres.Contains(newGenre))
-        {
-            book.AddGenre(newGenre);
-        }
+        
+        var lastGenre = genres.Last();
         
         foreach (var genre in genres)
         {
-            try
-            {
-                book.RemoveGenre(genre);
-            }
-            catch (DuplicateCollectionVariable)
+            if (genre == lastGenre)
             {
                 book.SwapGenres(genre, newGenre);
+                break;
             }
+            book.RemoveGenre(genre);
         }
     }
 }
