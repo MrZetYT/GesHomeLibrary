@@ -107,6 +107,11 @@ public class FilterView : BaseView
                     
                     break;
                 }
+                case 4:
+                {
+                    Console.Clear();
+                    break;
+                }
             }
         }
     }

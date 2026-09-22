@@ -1,5 +1,4 @@
-﻿using GesHomeLibrary.Exceptions;
-using GesHomeLibrary.Models;
+﻿using GesHomeLibrary.Models;
 using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models.DTOs;
 
@@ -7,7 +6,7 @@ namespace GesHomeLibrary.Services;
 
 public class BookService: IBookService
 {
-    public List<Book> Books { get; set; } = new();
+    private List<Book> Books { get; set; } = new();
     
     public void AddBook(AddingBook book)
     {

@@ -5,16 +5,16 @@ namespace GesHomeLibrary.Models;
 
 public class Book
 {
-    public int Id { get; set; }
+    public int Id { get; init; }
     public required string Name { get; set; }
     public required string Author { get; set; }
     public int ReleaseYear { get; set; }
     public IReadOnlyList<GenresList> Genres => _genres.ToImmutableList();
     public required StatusesList Status { get; set; }
     public string? GivenTo  { get; set; }
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime CreatedAt { get; init; } = DateTime.UtcNow;
 
-    private List<GenresList> _genres =[];
+    private readonly List<GenresList> _genres =[];
     
     public void AddGenre(GenresList genre)
     {

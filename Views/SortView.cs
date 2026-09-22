@@ -1,5 +1,4 @@
 ﻿using GesHomeLibrary.Interfaces;
-using GesHomeLibrary.Models;
 using GesHomeLibrary.Services;
 
 namespace GesHomeLibrary.Views;
@@ -50,6 +49,11 @@ public class SortView : BaseView
                 {
                     ShowAllBooks(_sortBookService.SortBooksByAuthor(_bookService.GetBooks()));
 
+                    break;
+                }
+                case 4:
+                {
+                    Console.Clear();
                     break;
                 }
             }

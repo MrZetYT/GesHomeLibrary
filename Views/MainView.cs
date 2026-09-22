@@ -46,26 +46,33 @@ public class MainView : BaseView
             {
                 case 1:
                 {
+                    Console.Clear();
                     ShowAllBooks(_bookService.GetBooks());
+                    Console.ReadKey();
+                    Console.Clear();
                     break;
                 }
                 case 2:
                 {
+                    Console.Clear();
                     _bookCrudView.StartBookCrudView();
                     break;
                 }
                 case 3:
                 {
+                    Console.Clear();
                     _filterView.StartFilterView();
                     break;
                 }
                 case 4:
                 {
+                    Console.Clear();
                     _sortView.StartSortView();
                     break;
                 }
                 case 5:
                 {
+                    Console.Clear();
                     _statisticsView.ShowStatistics(_bookService.GetBooks());
                     break;
                 }

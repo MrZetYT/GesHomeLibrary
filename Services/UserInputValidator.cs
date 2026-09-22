@@ -4,27 +4,34 @@ public class UserInputValidator
 {
     public int NumberInput(int minNumber, int maxNumber)
     {
-        int input = 0;
-        while (input <= minNumber-1 || input > maxNumber)
+        int result = 0;
+        while (result <= minNumber-1 || result > maxNumber)
         {
-                            
             Console.Write("Ввод: ");
+            
+            string? input = Console.ReadLine();
+            if (String.IsNullOrWhiteSpace(input))
+            {
+                Console.WriteLine("Неправильный ввод! Попробуйте еще раз...");
+                continue;
+            }
+            
             try
             {
-                input = int.Parse(Console.ReadLine());
+                result = int.Parse(input);
             }
             catch
             {
-                Console.WriteLine("Неправильный ввод! Попробуйте еще раз...");
+                Console.WriteLine("Нечисловое значение! Попробуйте еще раз...");
             }
         }
         
-        return input;
+        return result;
     }
 
     public string StringInput()
     {
-        string input;
+        string? input;
         while (true)
         {
             Console.Write("Ввод: ");

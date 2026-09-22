@@ -1,31 +1,21 @@
-﻿using GesHomeLibrary.Exceptions;
-using GesHomeLibrary.Interfaces;
-using GesHomeLibrary.Models;
-using GesHomeLibrary.Models.DTOs;
-using GesHomeLibrary.Services;
+﻿using GesHomeLibrary.Services;
 
 namespace GesHomeLibrary.Views;
 
 public class BookCrudView : BaseView
 {
-    private readonly IBookService _bookService;
     private readonly UserInputValidator  _userInputValidator;
-    private readonly BookValidator _bookValidator;
 
     private readonly AddingBookView _addingBookView;
     private readonly UpdatingBookView _updatingBookView;
     private readonly DeletingBookView _deletingBookView;
 
-    public BookCrudView(IBookService bookService,
-        UserInputValidator userInputValidator,
-        BookValidator bookValidator,
+    public BookCrudView(UserInputValidator userInputValidator,
         AddingBookView addingBookView,
         UpdatingBookView updatingBookView,
         DeletingBookView deletingBookView)
     {
-        _bookService = bookService;
         _userInputValidator = userInputValidator;
-        _bookValidator = bookValidator;
         _addingBookView = addingBookView;
         _updatingBookView = updatingBookView;
         _deletingBookView = deletingBookView;
@@ -47,19 +37,27 @@ public class BookCrudView : BaseView
             {
                 case 1:
                 {
+                    Console.Clear();
                     _addingBookView.StartAddingBookView();
                     break;
                 }
 
                 case 2:
                 {
+                    Console.Clear();
                     _updatingBookView.StartUpdatingBookView();
                     break;
                 }
 
                 case 3:
                 {
+                    Console.Clear();
                     _deletingBookView.StartDeletingBookView();
+                    break;
+                }
+                case 4:
+                {
+                    Console.Clear();
                     break;
                 }
             }

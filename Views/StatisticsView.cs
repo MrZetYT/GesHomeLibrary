@@ -13,17 +13,18 @@ public class StatisticsView
     }
     public void ShowStatistics(IEnumerable<Book> books)
     {
+        var bookList = books.ToList();
         Console.WriteLine("Статистика Вашей библиотеки:");
         Console.WriteLine(new string('~',50));
-        Console.WriteLine($"\nКоличество книг в библиотеке: {_statisticsService.CountBooks(books)}\n");
+        Console.WriteLine($"\nКоличество книг в библиотеке: {_statisticsService.CountBooks(bookList)}\n");
         Console.WriteLine(new string('~',50));
-        Console.WriteLine($"\nКоличество прочитанных книг в библиотеке: {_statisticsService.CountReadedBooks(books)}\n");
+        Console.WriteLine($"\nКоличество прочитанных книг в библиотеке: {_statisticsService.CountReadBooks(bookList)}\n");
         Console.WriteLine(new string('~',50));
-        Console.WriteLine($"\nКоличество отданных книг в библиотеке: {_statisticsService.CountGivenAwayBooks(books)}\n");
+        Console.WriteLine($"\nКоличество отданных книг в библиотеке: {_statisticsService.CountGivenAwayBooks(bookList)}\n");
         Console.WriteLine(new string('~',50));
         Console.WriteLine($"\nКоличество книг по жанрам в библиотеке:");
         
-        var booksByGenres = _statisticsService.CountBooksByGenres(books);
+        var booksByGenres = _statisticsService.CountBooksByGenres(bookList);
 
         foreach (var book in booksByGenres)
         {
@@ -32,5 +33,7 @@ public class StatisticsView
 
         Console.WriteLine();
         Console.WriteLine(new string('~',50));
+        Console.ReadKey();
+        Console.Clear();
     }
 }

@@ -10,7 +10,7 @@ public class StatisticsService: IStatisticsService
         return books.Count();
     }
 
-    public int CountReadedBooks(IEnumerable<Book> books)
+    public int CountReadBooks(IEnumerable<Book> books)
     {
         return books.Count(x => x.Status == StatusesList.Read);
     }

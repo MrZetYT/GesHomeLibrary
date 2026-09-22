@@ -26,9 +26,11 @@ services.AddTransient<StatisticsView>();
 services.AddTransient<AddingBookView>();
 services.AddTransient<UpdatingBookView>();
 services.AddTransient<DeletingBookView>();
+services.AddTransient<UpdatingGenreView>();
 
 var serviceProvider = services.BuildServiceProvider(validateScopes: true);
 
+Console.Clear();
 Console.WriteLine("Добро пожаловать в Вашу личную библиотеку!");
 
 try 

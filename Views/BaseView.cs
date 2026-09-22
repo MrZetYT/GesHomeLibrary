@@ -5,7 +5,7 @@ namespace GesHomeLibrary.Views;
 
 public class BaseView
 {
-    public void ShowAllBooks(IEnumerable<Book> books)
+    protected void ShowAllBooks(IEnumerable<Book> books)
     {
         foreach (var book in books)
         {
@@ -30,5 +30,19 @@ public class BaseView
                               $"Создана: {book.CreatedAt}");
         }
         Console.WriteLine(new string('~',50));
+    }
+
+    protected void ShowAllBookGenres()
+    {
+        Console.WriteLine("Возможные жанры:\n" +
+                          "1. Science Fiction\n" +
+                          "2. Fantasy\n" +
+                          "3. Adventure\n" +
+                          "4. Romance\n" +
+                          "5. Detective Story\n" +
+                          "6. Psychology\n" +
+                          "7. Philosophy\n" +
+                          "8. Programming\n" +
+                          "9. Fiction");
     }
 }
