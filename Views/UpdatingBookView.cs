@@ -95,11 +95,7 @@ public class UpdatingBookView : BaseView
             }
             case 5:
             {
-                Console.WriteLine("Доступные статусы: \n" +
-                                  "1. In Stock\n" +
-                                  "2. Read\n" +
-                                  "3. Given Away\n" +
-                                  "4. Being Read");
+                ShShowAllBookStatuses();
 
                 int newStatus = _userInputValidator.NumberInput(1, 4);
 

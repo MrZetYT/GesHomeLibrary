@@ -59,10 +59,6 @@ public class UpdatingGenreView : BaseView
                 {
                     _bookService.DeleteGenre(bookIdChoice, genres[genreToDeleteChoice - 1]);
                 }
-                catch (PossibleEmptyCollection ex)
-                {
-                    Console.WriteLine($"Произошла ошибка. Коллекция может быть пуста. {ex.Message}");
-                }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Что-то пошло не так. Удаление не выполнено. {ex.Message}");

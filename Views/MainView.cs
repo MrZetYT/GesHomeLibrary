@@ -29,65 +29,72 @@ public class MainView : BaseView
     
     public void StartMainView()
     {
-        int choice = 0;
-        while (choice != 6)
+        try
         {
-            Console.WriteLine("Что бы вы хотели сделать?");
-            Console.WriteLine("1. Показать все книги\n" + 
-                          "2. Операции по книге\n" +
-                          "3. Фильтр по книгам\n" + 
-                          "4. Сортировка книг\n" + 
-                          "5. Статистика по книгам\n" + 
-                          "6. Выход");
-
-            choice = _userInputValidator.NumberInput(1, 6);
-            
-            switch (choice)
+            int choice = 0;
+            while (choice != 6)
             {
-                case 1:
+                Console.WriteLine("Что бы вы хотели сделать?");
+                Console.WriteLine("1. Показать все книги\n" +
+                                  "2. Операции по книге\n" +
+                                  "3. Фильтр по книгам\n" +
+                                  "4. Сортировка книг\n" +
+                                  "5. Статистика по книгам\n" +
+                                  "6. Выход");
+
+                choice = _userInputValidator.NumberInput(1, 6);
+
+                switch (choice)
                 {
-                    Console.Clear();
-                    ShowAllBooks(_bookService.GetBooks());
-                    Console.ReadKey();
-                    Console.Clear();
-                    break;
-                }
-                case 2:
-                {
-                    Console.Clear();
-                    _bookCrudView.StartBookCrudView();
-                    break;
-                }
-                case 3:
-                {
-                    Console.Clear();
-                    _filterView.StartFilterView();
-                    break;
-                }
-                case 4:
-                {
-                    Console.Clear();
-                    _sortView.StartSortView();
-                    break;
-                }
-                case 5:
-                {
-                    Console.Clear();
-                    _statisticsView.ShowStatistics(_bookService.GetBooks());
-                    break;
-                }
-                case 6:
-                {
-                    Console.WriteLine("Всего хорошего!!!");
-                    break;
-                }
-                default:
-                {
-                    Console.WriteLine("Неправильный ввод! Попробуйте еще раз!");
-                    Console.ReadKey();
-                    continue;
+                    case 1:
+                    {
+                        Console.Clear();
+                        ShowAllBooks(_bookService.GetBooks());
+                        Console.ReadKey();
+                        Console.Clear();
+                        break;
+                    }
+                    case 2:
+                    {
+                        Console.Clear();
+                        _bookCrudView.StartBookCrudView();
+                        break;
+                    }
+                    case 3:
+                    {
+                        Console.Clear();
+                        _filterView.StartFilterView();
+                        break;
+                    }
+                    case 4:
+                    {
+                        Console.Clear();
+                        _sortView.StartSortView();
+                        break;
+                    }
+                    case 5:
+                    {
+                        Console.Clear();
+                        _statisticsView.ShowStatistics(_bookService.GetBooks());
+                        break;
+                    }
+                    case 6:
+                    {
+                        Console.WriteLine("Всего хорошего!!!");
+                        break;
+                    }
+                    default:
+                    {
+                        Console.WriteLine("Неправильный ввод! Попробуйте еще раз!");
+                        Console.ReadKey();
+                        continue;
+                    }
                 }
             }
+        }
+        catch
+        {
+            Console.WriteLine("Необработанное исключение! Попробуйте еще раз или сообщите разработчкику!");
         }
     }
 }

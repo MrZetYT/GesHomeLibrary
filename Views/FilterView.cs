@@ -36,16 +36,7 @@ public class FilterView : BaseView
             {
                 case 1:
                 {
-                    Console.WriteLine("Возможные жанры:\n" +
-                                      "1. Science Fiction\n" +
-                                      "2. Fantasy\n" +
-                                      "3. Adventure\n" +
-                                      "4. Romance\n" +
-                                      "5. Detective Story\n" +
-                                      "6. Psychology\n" +
-                                      "7. Philosophy\n" +
-                                      "8. Programming\n" +
-                                      "9. Fiction");
+                    ShowAllBookGenres();
                     
                     Console.WriteLine("Введите номер жанра");
                     int genre = _userInputValidator.NumberInput(1,9);
@@ -85,11 +76,7 @@ public class FilterView : BaseView
                 }
                 case 3:
                 {
-                    Console.WriteLine("Доступные статусы: \n" +
-                                      "1. In Stock\n" +
-                                      "2. Read\n" +
-                                      "3. Given Away\n" +
-                                      "4. Being Read");
+                    ShShowAllBookStatuses();
                     
                     int status = _userInputValidator.NumberInput(1,4);
 

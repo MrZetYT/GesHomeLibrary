@@ -58,10 +58,12 @@ public class DeletingBookView : BaseView
             case 2:
             {
                 Console.WriteLine("Уверены ли вы? (Y/N)");
-                string agreeChoice = "";
-                while (agreeChoice != "Y" && agreeChoice != "N")
+                string agreeChoice;
+                while (true)
                 {
                     agreeChoice = _userInputValidator.StringInput();
+                    if (agreeChoice != "Y" && agreeChoice != "N")
+                        break;
                     Console.WriteLine("Неправильный ввод ответа! Попробуйте еще раз...");
                 }
 

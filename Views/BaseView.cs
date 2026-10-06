@@ -45,4 +45,13 @@ public class BaseView
                           "8. Programming\n" +
                           "9. Fiction");
     }
+
+    protected void ShShowAllBookStatuses()
+    {
+        Console.WriteLine("Доступные статусы: \n" +
+                          "1. In Stock\n" +
+                          "2. Read\n" +
+                          "3. Given Away\n" +
+                          "4. Being Read");
+    }
 }

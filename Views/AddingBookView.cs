@@ -35,18 +35,20 @@ public class AddingBookView : BaseView
         for (int i = 0; i < genresCount; i++)
         {
             ShowAllBookGenres();
-
+            int genre;
             Console.WriteLine("Введите номер жанра");
-            int genre = _userInputValidator.NumberInput(1, 9);
+            while (true)
+            {
+                genre = _userInputValidator.NumberInput(1, 9);
+                if(!genres.Contains((GenresList) genre))
+                    break;
+                Console.WriteLine("Такой жанр уже есть! Попробуйте еще раз!");
+            }
 
             genres.Add((GenresList)genre - 1);
         }
 
-        Console.WriteLine("Доступные статусы: \n" +
-                          "1. In Stock\n" +
-                          "2. Read\n" +
-                          "3. Given Away\n" +
-                          "4. Being Read");
+        ShShowAllBookStatuses();
 
         int statusChoice = _userInputValidator.NumberInput(1, 4);
 
