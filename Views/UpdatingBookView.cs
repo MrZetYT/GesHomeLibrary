@@ -95,7 +95,7 @@ public class UpdatingBookView : BaseView
             }
             case 5:
             {
-                ShShowAllBookStatuses();
+                ShowAllBookStatuses();
 
                 int newStatus = _userInputValidator.NumberInput(1, 4);
 

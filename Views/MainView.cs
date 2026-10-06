@@ -11,13 +11,13 @@ public class MainView : BaseView
     private readonly SortView _sortView;
     private readonly StatisticsView _statisticsView;
     private readonly UserInputValidator _userInputValidator;
-    
+
     public MainView(IBookService bookService,
-            BookCrudView bookCrudView,
-            FilterView filterView,
-            SortView sortView,
-            StatisticsView statisticsView,
-            UserInputValidator  userInputValidator)
+        BookCrudView bookCrudView,
+        FilterView filterView,
+        SortView sortView,
+        StatisticsView statisticsView,
+        UserInputValidator userInputValidator)
     {
         _bookService = bookService;
         _bookCrudView = bookCrudView;
@@ -26,13 +26,13 @@ public class MainView : BaseView
         _statisticsView = statisticsView;
         _userInputValidator = userInputValidator;
     }
-    
+
     public void StartMainView()
     {
-        try
+        int choice = 0;
+        while (choice != 6)
         {
-            int choice = 0;
-            while (choice != 6)
+            try
             {
                 Console.WriteLine("Что бы вы хотели сделать?");
                 Console.WriteLine("1. Показать все книги\n" +
@@ -91,10 +91,10 @@ public class MainView : BaseView
                     }
                 }
             }
-        }
-        catch
-        {
-            Console.WriteLine("Необработанное исключение! Попробуйте еще раз или сообщите разработчкику!");
+            catch
+            {
+                Console.WriteLine("Необработанное исключение! Попробуйте еще раз или сообщите разработчкику!");
+            }
         }
     }
 }

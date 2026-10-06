@@ -1,5 +1,4 @@
-﻿using GesHomeLibrary.Exceptions;
-using GesHomeLibrary.Interfaces;
+﻿using GesHomeLibrary.Interfaces;
 using GesHomeLibrary.Models;
 using GesHomeLibrary.Services;
 

@@ -46,7 +46,7 @@ public class BaseView
                           "9. Fiction");
     }
 
-    protected void ShShowAllBookStatuses()
+    protected void ShowAllBookStatuses()
     {
         Console.WriteLine("Доступные статусы: \n" +
                           "1. In Stock\n" +

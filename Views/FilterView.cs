@@ -76,7 +76,7 @@ public class FilterView : BaseView
                 }
                 case 3:
                 {
-                    ShShowAllBookStatuses();
+                    ShowAllBookStatuses();
                     
                     int status = _userInputValidator.NumberInput(1,4);
 

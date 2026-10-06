@@ -40,7 +40,7 @@ public class AddingBookView : BaseView
             while (true)
             {
                 genre = _userInputValidator.NumberInput(1, 9);
-                if(!genres.Contains((GenresList) genre))
+                if(!genres.Contains((GenresList) genre-1))
                     break;
                 Console.WriteLine("Такой жанр уже есть! Попробуйте еще раз!");
             }
@@ -48,7 +48,7 @@ public class AddingBookView : BaseView
             genres.Add((GenresList)genre - 1);
         }
 
-        ShShowAllBookStatuses();
+        ShowAllBookStatuses();
 
         int statusChoice = _userInputValidator.NumberInput(1, 4);
 

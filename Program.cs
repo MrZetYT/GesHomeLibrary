@@ -33,12 +33,5 @@ var serviceProvider = services.BuildServiceProvider(validateScopes: true);
 Console.Clear();
 Console.WriteLine("Добро пожаловать в Вашу личную библиотеку!");
 
-try 
-{
-    var app = serviceProvider.GetRequiredService<MainView>();
-    app.StartMainView();
-}
-catch (Exception ex)
-{
-    Console.WriteLine($"Ошибка запуска приложения: {ex.Message}");
-}
+var app = serviceProvider.GetRequiredService<MainView>();
+app.StartMainView();
