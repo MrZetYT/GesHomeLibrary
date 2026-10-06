@@ -91,9 +91,9 @@ public class MainView : BaseView
                     }
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                Console.WriteLine("Необработанное исключение! Попробуйте еще раз или сообщите разработчкику!");
+                Console.WriteLine($"Необработанное исключение! Попробуйте еще раз или сообщите разработчику! {ex.Message}");
             }
         }
     }
